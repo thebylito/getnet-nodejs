@@ -2,6 +2,8 @@ import { Client } from './config';
 
 export { default as Safebox, SafeboxCard } from './lib/Safebox';
 export { default as Card } from './lib/Card';
+export { default as Payment } from './lib/Payment';
+export { BankSlipCreate } from './lib/BankSlip';
 // export { default as Safebox } from './Safebox';
 // export { default as Payment } from './Payment';
 
@@ -15,7 +17,7 @@ interface Config {
 
 export type GetnetEnvs = 'sandbox' | 'homolog' | 'production';
 
-const config = ({ sellerId, clientId, secret }: Config) => {
+const setConfig = ({ sellerId, clientId, secret }: Config) => {
   client.sellerId = sellerId;
   client.clientId = clientId;
   client.secret = secret;
@@ -24,7 +26,7 @@ const config = ({ sellerId, clientId, secret }: Config) => {
 const setEnv = (env: GetnetEnvs) => (client.env = env);
 
 export default {
-  config,
+  setConfig,
   client,
   setEnv,
 };
