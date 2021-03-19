@@ -10,14 +10,14 @@
  * for the package, you may want to declare your own. (If you're using the
  * `noImplicitAny` compiler options, you'll be required to declare it.)
  *
- * This is an example type definition which allows import from `module-name`,
+ * This is an example type definition which allows import from `getnet-nodejs`,
  * e.g.:
  * ```ts
- * import something from 'module-name';
+ * import something from 'getnet-nodejs';
  * something();
  * ```
  */
-declare module 'module-name' {
+declare module 'getnet-nodejs' {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const whatever: any;
   export = whatever;
