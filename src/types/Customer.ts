@@ -10,3 +10,17 @@ export type ProductTypes =
   | 'renew_subs'
   | 'shareware'
   | 'service';
+
+export interface CustomerAddress {
+  street: string;
+  number: string;
+  complement: string;
+  district: string;
+  city: string;
+  state: string;
+  country: string;
+  postal_code: string;
+}
+
+export type BillingAddress = CustomerAddress;
+export type Shippingddress = CustomerAddress;

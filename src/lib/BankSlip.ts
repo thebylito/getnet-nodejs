@@ -30,7 +30,7 @@ interface BankSlipCreateResponse {
   };
 }
 
-export interface BankSlipCreate {
+export interface BankSlipPaymentRequest {
   seller_id: string;
   amount: number;
   currency?: string;
@@ -65,7 +65,7 @@ export interface BankSlipCreate {
 
 export default class BankSlip {
   public static async create(
-    params: BankSlipCreate
+    params: BankSlipPaymentRequest
   ): Promise<BankSlipCreateResponse> {
     const { api } = await GetnetService.getInstance();
     const response = await api.post<BankSlipCreateResponse>(

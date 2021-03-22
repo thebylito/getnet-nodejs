@@ -1,6 +1,6 @@
 import '../utils/setupTests';
 import test from 'ava';
-import { Card, Safebox } from '../index';
+import Getnet from '../index';
 
 const custumer = {
   id: 'customer_1',
@@ -8,7 +8,7 @@ const custumer = {
 
 // ----
 test('Create a number_token', async (t) => {
-  const card1 = await Card.tokenize({
+  const card1 = await Getnet.Card.tokenize({
     card_number: '5155901222280001',
     customer_id: custumer.id,
   });
@@ -17,7 +17,7 @@ test('Create a number_token', async (t) => {
 
 // ----
 test('Create a tokenized card and send it to safebox', async (t) => {
-  const card1 = await Card.tokenize({
+  const card1 = await Getnet.Card.tokenize({
     card_number: '5155901222280001',
     customer_id: custumer.id,
   });
@@ -33,22 +33,22 @@ test('Create a tokenized card and send it to safebox', async (t) => {
     verify_card: false,
     security_code: '123',
   };
-  const safeboxCard = await Safebox.createCard(card);
+  const safeboxCard = await Getnet.Safebox.createCard(card);
   t.is(safeboxCard.number_token, card.number_token);
 });
 
 // ----
 test('Get all cards from an customer', async (t) => {
-  const cards = await Safebox.getAllCardsByCustomerId(custumer.id);
+  const cards = await Getnet.Safebox.getAllCardsByCustomerId(custumer.id);
   t.is(Array.isArray(cards), true);
 });
 
 // ----
 test('Get one card from an customer', async (t) => {
-  const cards = await Safebox.getAllCardsByCustomerId(custumer.id);
+  const cards = await Getnet.Safebox.getAllCardsByCustomerId(custumer.id);
   const cardToFind = cards[0];
 
-  const card = await Safebox.getCardById(cardToFind.card_id);
+  const card = await Getnet.Safebox.getCardById(cardToFind.card_id);
   t.is(card.card_id, cardToFind.card_id);
   t.is(card.cardholder_name, cardToFind.cardholder_name);
   t.is(card.last_four_digits, cardToFind.last_four_digits);
@@ -57,7 +57,7 @@ test('Get one card from an customer', async (t) => {
 
 // ----
 test('Delete one card from an customer', async (t) => {
-  const cards = await Safebox.getAllCardsByCustomerId(custumer.id);
-  const deleteCard = Safebox.removeCardById(cards[0].card_id);
+  const cards = await Getnet.Safebox.getAllCardsByCustomerId(custumer.id);
+  const deleteCard = Getnet.Safebox.removeCardById(cards[0].card_id);
   await t.notThrowsAsync(deleteCard);
 });

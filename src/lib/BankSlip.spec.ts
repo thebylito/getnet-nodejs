@@ -1,12 +1,12 @@
 import '../utils/setupTests';
 import { credentials } from '../utils/setupTests';
 import test from 'ava';
-import { Payment } from '../index';
-import { BankSlipCreate } from './BankSlip';
+import Getnet from '../index';
+import { BankSlipPaymentRequest } from './BankSlip';
 import { DateTime } from 'luxon';
 
-const mock: BankSlipCreate = {
-  seller_id: credentials.sellerId,
+const mock: BankSlipPaymentRequest = {
+  seller_id: credentials.sandbox.sellerId,
   amount: 100,
   currency: 'BRL',
   order: {
@@ -40,6 +40,8 @@ const mock: BankSlipCreate = {
 
 // ----
 test('Create a BankSplit/Boleto', async (t) => {
-  const bankSplit = await Payment.BankSlip.create(mock);
+  Getnet.setConfig(credentials.sandbox);
+  Getnet.setEnv('sandbox');
+  const bankSplit = await Getnet.Payment.BankSlip.create(mock);
   t.is(bankSplit.amount, mock.amount);
 });

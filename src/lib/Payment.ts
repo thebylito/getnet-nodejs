@@ -1,4 +1,6 @@
 import BankSlip from './BankSlip';
+import CreditCard from './CreditCard';
+import Pix from './Pix';
 
 export interface PaymentMin {
   seller_id?: string;
@@ -13,4 +15,6 @@ export default class Payment {
 
   public static BankSlip = BankSlip;
   public static Boleto = BankSlip;
+  public static Pix = Pix;
+  public static CreditCard = CreditCard;
 }

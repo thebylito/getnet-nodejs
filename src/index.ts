@@ -1,11 +1,12 @@
-import { Client } from './config';
-
-export { default as Safebox, SafeboxCard } from './lib/Safebox';
+export { BankSlipPaymentRequest } from './lib/BankSlip';
+export { PixPaymentRequest } from './lib/Pix';
+export { SafeboxCard } from './lib/Safebox';
 export { default as Card } from './lib/Card';
-export { default as Payment } from './lib/Payment';
-export { BankSlipCreate } from './lib/BankSlip';
-// export { default as Safebox } from './Safebox';
-// export { default as Payment } from './Payment';
+
+import { Client } from './config';
+import Safebox from './lib/Safebox';
+import Payment from './lib/Payment';
+import Card from './lib/Card';
 
 const client = Client.getInstance();
 
@@ -17,16 +18,18 @@ interface Config {
 
 export type GetnetEnvs = 'sandbox' | 'homolog' | 'production';
 
-const setConfig = ({ sellerId, clientId, secret }: Config) => {
-  client.sellerId = sellerId;
-  client.clientId = clientId;
-  client.secret = secret;
-};
+export default class Getnet {
+  public static client = client;
 
-const setEnv = (env: GetnetEnvs) => (client.env = env);
+  public static setEnv = (env: GetnetEnvs) => (client.env = env);
 
-export default {
-  setConfig,
-  client,
-  setEnv,
-};
+  public static setConfig = ({ sellerId, clientId, secret }: Config) => {
+    client.sellerId = sellerId;
+    client.clientId = clientId;
+    client.secret = secret;
+  };
+
+  public static Payment = Payment;
+  public static Safebox = Safebox;
+  public static Card = Card;
+}
